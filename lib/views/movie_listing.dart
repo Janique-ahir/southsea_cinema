@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:southsea_cinema/constants.dart';
 import 'package:southsea_cinema/widgets/nav_drawer.dart';
 
-class MovieListing extends StatelessWidget {
+class MovieListing extends StatefulWidget {
   const MovieListing({super.key});
+
+  @override
+  State<MovieListing> createState() => _MovieListingState();
+
+}
+class _MovieListingState extends State<MovieListing>{
+  int selectedTickets = 1;
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +41,27 @@ class MovieListing extends StatelessWidget {
 
             Text('Please note that Discounts/ Membership benefits will be applied once you have selected your tickets.' )
           
+          ]),
+          DropdownMenu<int>(
+            initialSelection: selectedTickets,
+            dropdownMenuEntries: const [
+              DropdownMenuEntry(value:1,label:'One ticket'),
+              DropdownMenuEntry(value: 2,label:'Two tickets'),
+              DropdownMenuEntry(value:3,label:'Three tickets'),
+              DropdownMenuEntry(value:4,label:'Four tickets'),
+              DropdownMenuEntry(value: 5, label: 'Five tickets')
+            ],
+            onSelected: (int? value){
+              if (value != null){
+                  setState((){
+                    selectedTickets = value;
 
-
-          ]
+                  });
+                }
+              }
+            ,
           )
+
         ]
         )
       
