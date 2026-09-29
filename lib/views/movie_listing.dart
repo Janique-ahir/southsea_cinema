@@ -13,9 +13,28 @@ class MovieListing extends StatelessWidget {
         backgroundColor: cinemaSurface,
         iconTheme: const IconThemeData(color: cinemaBrand),
         elevation: 0,
+
+     
+        
+
+        
       ),
+    
       drawer: const NavDrawer(),
-      body: const SizedBox.shrink(),
+      body: 
+         Container( 
+          child: Column(
+          children: [ 
+          Text('Emma(2020) (U)'),
+          Text("Emma. (2020) is a visually vibrant, witty period romantic comedy directed by Autumn de Wilde and based on Jane Austen's 1815 novel.")
+        ]
+        )
+      
+      )
+
+      
+      
     );
+    
   }
 }
