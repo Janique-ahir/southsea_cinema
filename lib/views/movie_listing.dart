@@ -11,6 +11,7 @@ class MovieListing extends StatefulWidget {
 }
 class _MovieListingState extends State<MovieListing>{
   int selectedTickets = 1;
+  String bookingMessage = '';
 
 
   @override
@@ -58,13 +59,24 @@ class _MovieListingState extends State<MovieListing>{
 
                   });
                 }
-              }
-            ,
-          )
+              }),
+            
+          
+          ElevatedButton(
+            onPressed: () {
+              setState((){
+                bookingMessage = '$selectedTickets ticket(s) added to order';
 
+          });
+            },
+            child: const Text('Add to Order'),
+          ),
+          Text(bookingMessage),
         ]
         )
       
+
+
       )
 
       
