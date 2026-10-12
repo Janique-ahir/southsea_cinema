@@ -18,6 +18,7 @@ class MovieRespository {
         id: 'badapples-2026',
         title: 'Bad Apples (2026)',
         description:
+        
         "A struggling primary school teacher begins to make some questionable decisions after one of her students is injured.",
         showtime: 'Friday 16th October, 18:00 - ends at 19:40 ',
         ageRating: '15',
