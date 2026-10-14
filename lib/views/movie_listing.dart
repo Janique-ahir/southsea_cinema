@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:southsea_cinema/constants.dart';
-import 'package:southsea_cinema/widgets/nav_drawer.dart';
+
+import 'package:southsea_cinema/models/movie.dart';
+
 
 class MovieListing extends StatefulWidget {
-  const MovieListing({super.key});
+    final Movie movie;
 
+
+  const MovieListing({
+    super.key,
+    required this.movie
+  });
   @override
   State<MovieListing> createState() => _MovieListingState();
 }
@@ -22,28 +29,38 @@ class _MovieListingState extends State<MovieListing> {
         iconTheme: const IconThemeData(color: cinemaBrand),
         elevation: 0,
       ),
-      drawer: const NavDrawer(),
       body: LayoutBuilder(
         builder: (context, constraints) {
           final bool isWide = constraints.maxWidth > 600;
           final movieInfo =
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('Emma (2020) (U)',
+            Text(
+              '${widget.movie.title} (${widget.movie.ageRating})',
+               
                 style: TextStyle(
                   color: cinemaFontWhite,
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 )),
+            const SizedBox(height: 16),
+            
+            Image.asset(
+              widget.movie.posterPath,
+              width:120,
+              height: 180,
+              fit: BoxFit.cover,
+            ),
             const SizedBox(height: 24),
-            const Text(
-                "Emma. (2020) is a visually vibrant, witty period romantic comedy directed by Autumn de Wilde and based on Jane Austen's 1815 novel.",
-                style: TextStyle(
+
+            Text(
+                widget.movie.description,
+                style: const TextStyle(
                   color: cinemaFontWhite,
                   fontSize: 16,
                 )),
             const SizedBox(height: 24),
-            const Text('Friday 2nd October 2026, 18:00 - ends at 19:24.',
-                style: TextStyle(
+            Text(widget.movie.showtime,
+                style: const TextStyle(
                   color: cinemaFontWhite,
                   fontSize: 16,
                 )),
@@ -65,9 +82,9 @@ class _MovieListingState extends State<MovieListing> {
           final ticketControls = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Ticket(s)',
-                style: TextStyle(
+            Text(
+                'Ticket(s) (£${widget.movie.ticketPrice.toStringAsFixed(2)} each) ',
+                style: const TextStyle(
                     color: cinemaFontWhite,
                     fontSize: 16,
                     fontWeight: FontWeight.bold),
@@ -106,9 +123,11 @@ class _MovieListingState extends State<MovieListing> {
             ],
           );
 
-          return Container(
-            padding: const EdgeInsets.all(24),
-            child: isWide
+          return SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.all(24),
+              child: isWide
+               
                 ? Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -125,6 +144,7 @@ class _MovieListingState extends State<MovieListing> {
                       ticketControls,
                     ],
                   ),
+            ),
           );
         },
       ),
