@@ -63,7 +63,7 @@ class MovieCard extends StatelessWidget {
                     ),
                   ),
                    Text(
-                    '£${movie.ticketPrice.toStringAsFixed(2)}',
+                    '{movie.formattedPrice}',
                     style: const TextStyle(
                       color: cinemaBrand,
                       fontWeight: FontWeight.bold,
