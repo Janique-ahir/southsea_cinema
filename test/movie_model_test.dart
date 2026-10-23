@@ -32,10 +32,6 @@ void main() {
           ticketPrice: 8.50,
           posterPath: 'assets/images/emma.jpg');
 
-      expect(movieWithPence.formattedPrice, '8.50');
-    });
-
-    test('', () {
       const movieWithWholePounds = Movie(
           id: 'test-2',
           title: 'Emma (2020)',
@@ -43,8 +39,11 @@ void main() {
           ageRating: 'U',
           showtime: '18:00',
           ticketPrice: 10.00,
-          posterPath: 'assets/images/emma.jpg');
-      expect(movieWithWholePounds.formattedPrice, '10.00');
+          posterPath: 'assets/images/emma.jpg',);
+
+      expect(movieWithPence.formattedPrice, '£8.50');
+      expect(movieWithWholePounds.formattedPrice, '£10.00');
+
     });
   });
 }

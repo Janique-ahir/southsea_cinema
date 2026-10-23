@@ -3,15 +3,10 @@ import 'package:southsea_cinema/constants.dart';
 
 import 'package:southsea_cinema/models/movie.dart';
 
-
 class MovieListing extends StatefulWidget {
-    final Movie movie;
+  final Movie movie;
 
-
-  const MovieListing({
-    super.key,
-    required this.movie
-  });
+  const MovieListing({super.key, required this.movie});
   @override
   State<MovieListing> createState() => _MovieListingState();
 }
@@ -34,26 +29,21 @@ class _MovieListingState extends State<MovieListing> {
           final bool isWide = constraints.maxWidth > 600;
           final movieInfo =
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(
-              '${widget.movie.title} (${widget.movie.ageRating})',
-               
+            Text('${widget.movie.title} (${widget.movie.ageRating})',
                 style: TextStyle(
                   color: cinemaFontWhite,
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 )),
             const SizedBox(height: 16),
-            
             Image.asset(
               widget.movie.posterPath,
-              width:120,
+              width: 120,
               height: 180,
               fit: BoxFit.cover,
             ),
             const SizedBox(height: 24),
-
-            Text(
-                widget.movie.description,
+            Text(widget.movie.description,
                 style: const TextStyle(
                   color: cinemaFontWhite,
                   fontSize: 16,
@@ -82,7 +72,7 @@ class _MovieListingState extends State<MovieListing> {
           final ticketControls = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            Text(
+              Text(
                 'Ticket(s) (${widget.movie.formattedPrice} each)',
                 style: const TextStyle(
                     color: cinemaFontWhite,
@@ -127,23 +117,22 @@ class _MovieListingState extends State<MovieListing> {
             child: Container(
               padding: const EdgeInsets.all(24),
               child: isWide
-               
-                ? Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: movieInfo),
-                      const SizedBox(width: 32),
-                      ticketControls,
-                    ],
-                  )
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      movieInfo,
-                      const SizedBox(height: 32),
-                      ticketControls,
-                    ],
-                  ),
+                  ? Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(child: movieInfo),
+                        const SizedBox(width: 32),
+                        ticketControls,
+                      ],
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        movieInfo,
+                        const SizedBox(height: 32),
+                        ticketControls,
+                      ],
+                    ),
             ),
           );
         },

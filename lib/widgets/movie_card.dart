@@ -45,7 +45,6 @@ class MovieCard extends StatelessWidget {
                         color: cinemaFontMuted,
                       )),
                   const SizedBox(height: 8),
-                 
                   Text(
                     movie.description,
                     maxLines: 3,
@@ -62,32 +61,29 @@ class MovieCard extends StatelessWidget {
                       fontSize: 12,
                     ),
                   ),
-                   Text(
-                    '{movie.formattedPrice}',
+                  Text(
+                    movie.formattedPrice,
                     style: const TextStyle(
                       color: cinemaBrand,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 12),
-
                   ElevatedButton(
-                    onPressed: (){
+                    onPressed: () {
                       Navigator.push(
-                        context, 
+                        context,
                         MaterialPageRoute(
                           builder: (context) => MovieListing(movie: movie),
                         ),
                       );
-
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: cinemaBrand,
                       foregroundColor: cinemaBackground,
                     ),
                     child: const Text('Book Now'),
-                    ),
-                  
+                  ),
                 ],
               ),
             ),
