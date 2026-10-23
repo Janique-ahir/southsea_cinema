@@ -9,7 +9,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final movies = MovieRespository().getMovies();
+    final movies = MovieRepository().getMovies();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -24,13 +24,12 @@ class HomeView extends StatelessWidget {
       body: ListView.builder(
         padding: const EdgeInsets.all(16),
         itemCount: movies.length,
-        itemBuilder: (context,index){
+        itemBuilder: (context, index) {
           return MovieCard(
             movie: movies[index],
           );
         },
-        ),
-      
+      ),
     );
   }
 }
