@@ -22,22 +22,19 @@ void main() {
       expect(find.text('Book Now'), findsNWidgets(2));
     });
     testWidgets('Book Now opens the correct movie listing',
-      (WidgetTester tester ) async {
-        await tester.pumpWidget(const SouthseaCinemaApp());
+        (WidgetTester tester) async {
+      await tester.pumpWidget(const SouthseaCinemaApp());
 
-        await tester.tap(find.text('Book Now').first);
-        await tester.pumpAndSettle();
+      await tester.tap(find.text('Book Now').first);
+      await tester.pumpAndSettle();
 
-        expect(find.byType(MovieListing), findsOneWidget);
-        expect(find.text('Emma (2020) (U)'), findsOneWidget);
-        
-        await tester.tap(find.text('Add to Order'));
-        await tester.pump();
+      expect(find.byType(MovieListing), findsOneWidget);
+      expect(find.text('Emma (2020) (U)'), findsOneWidget);
 
-        expect(find.text('1 ticket(s) added to order'), findsOneWidget);
-      }
+      await tester.tap(find.text('Add to Order'));
+      await tester.pump();
 
-    
-    );
+      expect(find.text('1 ticket(s) added to order'), findsOneWidget);
+    });
   });
 }
