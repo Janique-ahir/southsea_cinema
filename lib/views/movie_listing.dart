@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:southsea_cinema/constants.dart';
+import 'package:southsea_cinema/widgets/primary_button.dart';
 
 import 'package:southsea_cinema/models/movie.dart';
 
@@ -94,18 +95,15 @@ class _MovieListingState extends State<MovieListing> {
                     }
                   }),
               const SizedBox(height: 12),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    bookingMessage =
-                        '$selectedTickets ticket(s) added to order';
-                  }); //elevated button
-                  const SizedBox(
-                    height: 12,
-                  );
+             PrimaryButton(
+              label: 'Add to Order',
+              onPressed: (){
+                setState((){
+                  bookingMessage = '$selectedTickets ticket(s) added to order';
+                });
                 },
-                child: const Text('Add to Order'),
               ),
+                
               Text(bookingMessage, style: TextStyle(color: cinemaBrandLight))
             ],
           );
