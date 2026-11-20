@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:southsea_cinema/main.dart';
 import 'package:southsea_cinema/views/home_view.dart';
@@ -6,8 +7,12 @@ import 'package:southsea_cinema/views/movie_listing.dart';
 
 void main() {
   group('Southsea Cinema widget tests', () {
+    setUp(() {
+      rootBundle.clear();
+    });
     testWidgets('App opens HomeView', (WidgetTester tester) async {
       await tester.pumpWidget(const SouthseaCinemaApp());
+      await tester.pumpAndSettle();
 
       expect(find.byType(HomeView), findsOneWidget);
       expect(find.text(appTitle), findsOneWidget);
@@ -15,6 +20,7 @@ void main() {
     testWidgets('HomeView displays movies and booking buttons',
         (WidgetTester tester) async {
       await tester.pumpWidget(const SouthseaCinemaApp());
+      await tester.pumpAndSettle();
 
       expect(find.text('Emma (2020)'), findsOneWidget);
       expect(find.text('Bad Apples (2026)'), findsOneWidget);
@@ -24,6 +30,7 @@ void main() {
     testWidgets('Book Now opens the correct movie listing',
         (WidgetTester tester) async {
       await tester.pumpWidget(const SouthseaCinemaApp());
+      await tester.pumpAndSettle();
 
       await tester.tap(find.text('Book Now').first);
       await tester.pumpAndSettle();
