@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:southsea_cinema/models/movie.dart';
 import 'package:southsea_cinema/repositories/movie_repository.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   group('MovieRepository unit tests', () {
     test('getMovies returns two movies', () {
       final MovieRepository repository = MovieRepository();
@@ -45,6 +47,28 @@ void main() {
       final Movie? movie = repository.getMovieById('random movie');
 
       expect(movie, isNull);
+    });
+
+    test('Reads Emma and Bad Apples from the bundled JSON asset', () async {
+      final repository = MovieRepository();
+      final movies = await repository.loadMoviesFromAsset();
+      expect(movies.length, 2);
+      expect(movies[0].id, 'emma-2020');
+      expect(movies[0].title, 'Emma (2020)');
+      expect(movies[0].ticketPrice, 8.50);
+      expect(movies[1].id, 'badapples-2026');
+      expect(movies[1].title, 'Bad Apples (2026)');
+      expect(movies[1].ticketPrice, 8.50);
+      expect(repository.getMovies(), movies);
+      expect(repository.getMovieById('badapples-2026')?.title, 'Bad Apples (2026)');
+    });
+
+    test('Missing movie JSON asset produces an error', () async {
+      final repository = MovieRepository();
+      await expectLater(
+        repository.loadMoviesFromAsset(assetPath: 'assets/data/no-films.json'),
+        throwsA(isA<FlutterError>()),
+      );
     });
   });
 }
