@@ -8,31 +8,21 @@ void main() {
 
     await tester.tap(find.byIcon(Icons.menu));
     await tester.pumpAndSettle();
-
     await tester.tap(find.text('My Basket'));
     await tester.pumpAndSettle();
-
     expect(find.text('Your basket is empty'), findsOneWidget);
 
     await tester.tap(find.byIcon(Icons.menu));
     await tester.pumpAndSettle();
-
     await tester.tap(find.text('My Settings'));
     await tester.pumpAndSettle();
-
-    expect(
-      find.text('Customer settings will appear here.'),
-      findsOneWidget,
-    );
+    expect(find.text('Customer Profile'), findsOneWidget);
+    expect(find.byType(TextField), findsNWidgets(3));
 
     await tester.tap(find.byIcon(Icons.menu));
     await tester.pumpAndSettle();
-
     await tester.tap(find.text('Home'));
     await tester.pumpAndSettle();
-
     expect(find.text('Emma (2020)'), findsOneWidget);
-
-    //expect(find.text('Emma(2020)'),findsOneWidget);
   });
 }
