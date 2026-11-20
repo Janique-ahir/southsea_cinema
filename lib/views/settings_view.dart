@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:southsea_cinema/models/user_settings.dart';
 import 'package:southsea_cinema/widgets/nav_drawer.dart';
 import 'package:southsea_cinema/widgets/primary_button.dart';
+
+const String prefName = 'cinema_user_name';
+const String prefEmail = 'cinema_user_email';
+const String prefPhone = 'cinema_user_phone';
+const String prefNewsletter = 'cinema_user_newsletter';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
@@ -23,6 +29,7 @@ class _SettingsViewState extends State<SettingsView> {
     _nameController = TextEditingController();
     _emailController = TextEditingController();
     _phoneController = TextEditingController();
+    _loadSettings();
   }
 
   @override
@@ -33,10 +40,32 @@ class _SettingsViewState extends State<SettingsView> {
     super.dispose();
   }
 
-  void _saveSettings() {
+  Future<void> _loadSettings() async {
+    final prefs = SharedPreferencesAsync();
+    final name = await prefs.getString(prefName) ?? '';
+    final email = await prefs.getString(prefEmail) ?? '';
+    final phone = await prefs.getString(prefPhone) ?? '';
+    final newsletter = await prefs.getBool(prefNewsletter) ?? false;
+
+    if (!mounted) return;
+    setState(() {
+      _nameController.text = name;
+      _emailController.text = email;
+      _phoneController.text = phone;
+      _receiveNewsletter = newsletter;
+    });
+  }
+
+  Future<void> _saveSettings() async {
     final name = _nameController.text.trim();
     final email = _emailController.text.trim();
     final phone = _phoneController.text.trim();
+    final prefs = SharedPreferencesAsync();
+
+    await prefs.setString(prefName, name);
+    await prefs.setString(prefEmail, email);
+    await prefs.setString(prefPhone, phone);
+    await prefs.setBool(prefNewsletter, _receiveNewsletter);
 
     final settings = UserSettings(
       name: name,
@@ -44,7 +73,7 @@ class _SettingsViewState extends State<SettingsView> {
       phone: phone,
       receiveNewsletter: _receiveNewsletter,
     );
-
+    if (!mounted) return;
     setState(() {
       _confirmationMessage = 'Settings saved for ${settings.name}';
     });
