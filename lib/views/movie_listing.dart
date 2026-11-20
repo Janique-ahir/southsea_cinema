@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:southsea_cinema/constants.dart';
 import 'package:southsea_cinema/widgets/primary_button.dart';
+import 'package:southsea_cinema/repositories/basket_repository.dart';
 
 import 'package:southsea_cinema/models/movie.dart';
 
@@ -98,6 +99,8 @@ class _MovieListingState extends State<MovieListing> {
              PrimaryButton(
               label: 'Add to Order',
               onPressed: (){
+                BasketRepository.instance.addTickets(widget.movie, selectedTickets);
+                
                 setState((){
                   bookingMessage = '$selectedTickets ticket(s) added to order';
                 });
